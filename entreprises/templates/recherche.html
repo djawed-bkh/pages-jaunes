@@ -1,0 +1,21 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>titre</th>
+            <th>nom</th>
+            <th>description</th>
+            <th>horaires</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for ent in entreprises %}
+        <tr>
+            <td> <a href="{% url 'detail' ent.id %}">{{ent.nom}}</a></td>
+            <td>{{ent.titre}}</td>
+            <td>{{ent.description}}</td>
+            <td>
+                {%for hor in ent.horaires.all %} {{hor.jour}}{{hor.ouverture}}-{{hor.fermeture}} {% endfor %}</td>
+        </tr>
+        {% endfor %} </tbody>
+</table>

@@ -1,0 +1,51 @@
+{% extends 'base.html' %} {% block liste %}
+
+<section>
+    <div class="table-responsive" id="app">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>titre</th>
+                    <th>nom</th>
+                    <th>description</th>
+                    <th>horaires</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for ent in entreprises %}
+                <tr>
+                    <td> <a href="{% url 'detail' ent.id %}">{{ent.nom}}</a></td>
+                    <td>{{ent.titre}}</td>
+                    <td>{{ent.description}}</td>
+                    <td>
+                        {%for hor in ent.horaires.all %} {{hor.jour}}{{hor.ouverture}}-{{hor.fermeture}} {% endfor %}</td>
+                </tr>
+                {% endfor %} </tbody>
+        </table>
+    </div>
+
+
+
+</aside>
+</div>
+</section>
+{% endblock %} {% block javascript %}
+<script>
+    function test() {
+        let envoie = $('#entre').val();
+        console.log(envoie)
+        $.ajax({
+            url: " {% url 'recherche' %}",
+            data: { 'valeur': envoie },
+            dataType: 'html',
+            success: function (data) {
+                console.log(data)
+                $('#app').html(data)
+            }
+        })
+    }
+
+</script>
+
+{% endblock javascript %}

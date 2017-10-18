@@ -1,0 +1,17 @@
+{% extends 'base.html'%} {% block liste %}
+<h1 id="animation" style="display: inline">{{entreprise.nom}}</h1>
+<p> {{entreprise.pub_date}} </p>
+<p>{{entreprise.titre}} </p>
+<p>{{entreprise.registre_de_commerce}} </p>
+<p>{%for hor in entreprise.horaires.all %} {{hor.jour}}{{hor.ouverture}}-{{hor.fermeture}} {% endfor %} </p>
+
+
+{% endblock liste%} {%block javascript %}
+<script>
+        $('#animation').animate({
+                'font-size': '100px'
+        }, 10000);
+
+</script>
+
+{% endblock javascript %}

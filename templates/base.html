@@ -1,0 +1,236 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>pages jaunes </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+    <header class="navbar navbar-inverse" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <a class="navbar-brand" href="http://127.0.0.1:8000/entreprises/">Page Jaune</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="infos.html">a propos</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href=" #" data-toggle="modal" data-target="#inscription">inscription</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#conexion">conexion</a></li>
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </header>
+    <div id="hero">
+    <div class="hero-image">
+  <div class="hero-text">
+    <h1>Pages Jaunes</h1>
+  </div>
+</div>    
+    </div>
+    
+    <div class="modal fade" id="inscription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Inscription</h4>
+                </div>
+                <form id="formulaire">
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">nom:</label>
+                            <input required type="text" class="form-control" id="nom">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">prenom:</label>
+                            <input required required type="text" class="form-control" id="prenom">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">e-mail:</label>
+                            <input required type="email" class="form-control" id="mail">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">mot de passe:</label>
+                            <input required type="password" class="form-control" id="pasword">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" type="submit" onclick="es()">s'inscrire</button>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="conexion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">connexion</h4>
+                </div>
+                <form id="formulaire">
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">e-mail</label>
+                            <input required type="email" class="form-control" id="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">mot de passe</label>
+                            <input required required type="password" class="form-control" id="password">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" type="submit" onclick="es()">se connecter</button>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% block recherche%}
+    <div class='col-md-4 col-md-offset-4'>
+        <div class="form-group">
+            <input id="entre" type="text" onChange="test()" class="form-control" placeholder="Search">
+        </div>
+
+    </div>
+    {% endblock %}
+    <div class='col-md-8 col-md-offset-2'>
+        {% block liste %} {% endblock liste%}
+    </div>
+    <script src="{% static 'jquery/dist/jquery.js'%}">
+
+    </script>
+    <script src="{% static 'bootstrap/dist/js/bootstrap.js'%}">
+
+    </script>
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+        console.log(csrftoken)
+        function es() {
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+            console.log($('form')[0].checkValidity())
+            let nom = $('#nom').val()
+            let prenom = $('#prenom').val()
+            let mail = $('#mail').val()
+            let pasword = $('#pasword').val()
+            console.log(nom)
+            $.ajax({
+
+                url: "{% url 'inscription'%}",
+                data: { 'nom': nom, 'prenom': prenom, 'mail': mail, 'pasword': pasword },
+                datatype: 'html',
+                method: "POST",
+                success: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+
+    </script>
+    <script>
+         function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+        console.log(csrftoken)
+        function inc() {
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+        function inc() {
+            let mail = $('#email').val()
+            let password=$('#password').val()
+            console.log(mail)
+            $.ajax()({
+                url: "{% url 'conexion' %}",
+                data: { 'mail': mail,'password':password },
+                datatype: 'html',
+                method: 'POST',
+                success: function (data) {
+                   
+                },
+
+
+            })
+        }}
+
+    </script>
+    {%block javascript %} {% endblock javascript %}
+</body>
+
+</html>
