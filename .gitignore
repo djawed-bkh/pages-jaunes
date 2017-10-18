@@ -1,0 +1,7 @@
+.idea/
+node_modules/*
+yarn.lock
+bootstrap/
+font-awesome/
+jquery/
+lodash/

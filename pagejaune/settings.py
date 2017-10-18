@@ -55,8 +55,7 @@ ROOT_URLCONF = 'pagejaune.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/home/djawed/virtual/pagejaune/templates',
-        '/home/djawed/virtual/pagejaune/entreprises/templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
